@@ -1,0 +1,22 @@
+{
+  "name": "node-crud-api",
+  "version": "1.0.0",
+  "description": "RSS Task to implement Crud API using Node.js APIs. https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/crud-api/assignment.md",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mitrofanzxc/node-crud-api.git"
+  },
+  "author": "mitrofanzxc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mitrofanzxc/node-crud-api/issues"
+  },
+  "homepage": "https://github.com/mitrofanzxc/node-crud-api"
+}
