@@ -2,7 +2,7 @@ import { createServer } from 'node:http';
 import { env } from 'node:process';
 import dotenv from 'dotenv';
 
-import { HOST_PORT } from 'constants/common';
+import { DEFAULT_HOST_PORT } from 'constants/common';
 
 import { App } from 'app';
 import { Database } from 'services/db';
@@ -21,6 +21,6 @@ const server = createServer((request, response) => {
     app.handleHttp(request, response);
 });
 
-server.listen(env.HOST_PORT ?? HOST_PORT);
+server.listen(env.HOST_PORT ?? DEFAULT_HOST_PORT);
 
 export { server };

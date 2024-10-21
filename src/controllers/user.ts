@@ -54,6 +54,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
             responce.result = this.database.all();
         } else {
             const userData = this.database.get(user_id);
+
             if (!userData) {
                 responce.code = 404;
                 responce.message = "User with this ID doesn't exist";
@@ -77,8 +78,8 @@ export class UserController implements ControllerInterface<ControllerResponse> {
 
     private _handlePut(data: object, params: string[]): ControllerResponse {
         const user_id = params[0] as string;
-
         const userData = this.database.get(user_id);
+
         if (!userData) {
             return {
                 code: 404,
@@ -87,6 +88,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         }
 
         const userModel = createUserModel({ ...userData, ...data });
+
         this.database.update(user_id, userModel);
 
         return {

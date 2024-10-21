@@ -6,7 +6,7 @@ export type ControllerResponse = {
     message?: string;
 };
 
-export const enum RequestMethodMapper {
+export enum RequestMethodMapper {
     GET = '_handleGet',
     POST = '_handlePost',
     PUT = '_handlePut',

@@ -1,2 +1,2 @@
-export const HOST_PORT = 3000;
-export const CLUSTER_PORT = 4000;
+export const DEFAULT_HOST_PORT = 3000;
+export const DEFAULT_CLUSTER_PORT = 4000;
