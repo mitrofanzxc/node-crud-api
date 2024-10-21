@@ -13,7 +13,7 @@ export class App {
 
     handleHttp(request: IncomingMessage, response: ServerResponse) {
         try {
-            this.router.handle(request, response);
+            this.router.handleRequest(request, response);
         } catch (error) {
             request.emit('error', error);
         }

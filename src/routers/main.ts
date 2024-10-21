@@ -16,7 +16,7 @@ export class Router {
         this.controllers = await controllersProvider.getControllers(database);
     }
 
-    handle(request: IncomingMessage, response: ServerResponse): void {
+    handleRequest(request: IncomingMessage, response: ServerResponse): void {
         let data: string = '';
 
         response.setHeader('Content-Type', 'application/json');
