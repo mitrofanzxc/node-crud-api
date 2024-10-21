@@ -32,7 +32,7 @@ const requiredFields: FieldsMap = {
     },
 };
 
-export const createUserModel = (object: UserInterface): UserInterface => {
+export const createUserModel = (object: Object | UserInterface): UserInterface => {
     if (hasRequiredFields<UserInterface>(object, requiredFields)) {
         throw new ModelErrorFields();
     }

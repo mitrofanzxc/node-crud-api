@@ -40,7 +40,7 @@ if (cluster.isPrimary) {
         });
     }
 
-    cluster.on('message', (messagedWorker: Worker, workerDatabase: object) => {
+    cluster.on('message', (messagedWorker: Worker, workerDatabase: Object) => {
         if (!workerDatabase || !workerDatabase.hasOwnProperty('data')) {
             return;
         }

@@ -17,7 +17,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
     public proceed(
         method: keyof typeof RequestMethodMapper,
         params: string[],
-        data: object,
+        data: Object,
     ): ControllerResponse {
         const operation = RequestMethodMapper[method];
         const handler = this[operation];
@@ -66,7 +66,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         return responce;
     }
 
-    private _handlePost(data: object): ControllerResponse {
+    private _handlePost(data: Object): ControllerResponse {
         const model = createUserModel(data);
         const result = this.database.add(model);
         return {
@@ -76,7 +76,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         } as ControllerResponse;
     }
 
-    private _handlePut(data: object, params: string[]): ControllerResponse {
+    private _handlePut(data: Object, params: string[]): ControllerResponse {
         const user_id = params[0] as string;
         const userData = this.database.get(user_id);
 
