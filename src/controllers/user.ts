@@ -1,14 +1,12 @@
-import ControllerInterface, {
-    ControllerRoot,
-    ControllerResponse,
-    RequestMethodMapper,
-} from './controller.interface';
+import { Database } from 'services/db';
+
+import type { ControllerInterface, ControllerResponse, ControllerRoot } from './interface';
+import { RequestMethodMapper } from './interface';
 
 import type { UserInterface } from 'models/user';
 import { createUserModel } from 'models/user';
-import { Database } from 'services/db';
 
-export default class UserController implements ControllerInterface<ControllerResponse> {
+export class UserController implements ControllerInterface<ControllerResponse> {
     root: ControllerRoot = '/api/users';
     protected database: Database<UserInterface>;
 

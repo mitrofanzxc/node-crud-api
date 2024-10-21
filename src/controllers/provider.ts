@@ -1,8 +1,7 @@
-import ControllerInterface, { ControllerRoot, ControllerResponse } from './controller.interface';
-
 import { Database } from 'services/db';
+import { UserController } from './user';
 
-import UserController from './user';
+import type { ControllerInterface, ControllerResponse, ControllerRoot } from './interface';
 
 const controllers = [UserController];
 

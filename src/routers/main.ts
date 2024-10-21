@@ -1,11 +1,14 @@
 import { IncomingMessage, ServerResponse } from 'node:http';
-import ControllerInterface, {
+
+import type {
+    ControllerInterface,
     ControllerResponse,
     ControllerRoot,
-} from './../controllers/controller.interface';
-import controllersProvider from './../controllers/controller.provider';
+} from 'controllers/interface';
 
 import { Database } from 'services/db';
+
+import { controllersProvider } from 'controllers/provider';
 
 export class Router {
     protected controllers: {
