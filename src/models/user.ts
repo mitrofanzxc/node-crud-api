@@ -1,6 +1,7 @@
 import { ModelErrorFields } from 'constants/error';
 
-import { FieldsMap, hasRequiredFields } from './../utils/objects';
+import type { FieldsMap } from 'utils/has-required-fields';
+import { hasRequiredFields } from 'utils/has-required-fields';
 
 import type { ModelInterface } from './model';
 
