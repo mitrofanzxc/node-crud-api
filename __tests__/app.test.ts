@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { server } from 'server';
 import { Database } from 'services/db';
 import { UserController } from 'controllers/user';
+import { StatusCode } from 'controllers/interface';
 
 dotenv.config();
 
@@ -43,7 +44,7 @@ describe('Valid Requests', () => {
     test('Get all records with a GET api/users request (an empty array is expected)', async () => {
         const response = await request(server).get(controller_root);
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toEqual(StatusCode.OK);
         expect(response.body).toEqual({ result: [] });
     });
 
@@ -51,14 +52,14 @@ describe('Valid Requests', () => {
         const valid_id = uuid();
         const response = await request(server).get(controller_root + '/' + valid_id);
 
-        expect(response.status).toEqual(404);
+        expect(response.status).toEqual(StatusCode.NOT_FOUND);
         expect(response.body).toHaveProperty('message');
     });
 
     test('Add new valid user (201 status and the result expected)', async () => {
         const response = await request(server).post(controller_root).send(validBody);
 
-        expect(response.status).toEqual(201);
+        expect(response.status).toEqual(StatusCode.CREATED);
         expect(response.body).toHaveProperty('result.id');
     });
 
@@ -71,7 +72,7 @@ describe('Valid Requests', () => {
 
         const getUserResponce = await request(server).get(controller_root + '/' + user_id);
 
-        expect(getUserResponce.status).toEqual(200);
+        expect(getUserResponce.status).toEqual(StatusCode.OK);
         expect(getUserResponce.body).toHaveProperty('result.id');
     });
 
@@ -83,7 +84,7 @@ describe('Valid Requests', () => {
 
         const getUserResponce = await request(server).delete(controller_root + '/' + user_id);
 
-        expect(getUserResponce.status).toEqual(204);
+        expect(getUserResponce.status).toEqual(StatusCode.NO_CONTENT);
     });
 
     test('Update existed user (200 status and the result expected)', async () => {
@@ -99,7 +100,7 @@ describe('Valid Requests', () => {
             .put(controller_root + '/' + user_id)
             .send(validBody);
 
-        expect(putUserResponce.status).toEqual(200);
+        expect(putUserResponce.status).toEqual(StatusCode.OK);
         expect(putUserResponce.body).toHaveProperty('result');
         expect(putUserResponce.body.result).toMatchObject({
             ...validBody,
@@ -113,21 +114,21 @@ describe('Invalid Requests', () => {
         const invalid_id = uuid() + '__';
         const response = await request(server).get(controller_root + '/' + invalid_id);
 
-        expect(response.status).toEqual(400);
+        expect(response.status).toEqual(StatusCode.BAD_REQUEST);
         expect(response.body).toHaveProperty('message');
     });
 
     test('Requests to non-existing endpoints', async () => {
         const createUserResponce = await request(server).get('/no/' + controller_root);
 
-        expect(createUserResponce.status).toEqual(404);
+        expect(createUserResponce.status).toEqual(StatusCode.NOT_FOUND);
         expect(createUserResponce.body).toHaveProperty('message');
     });
 
     test('Add new user with invalid JSON (500 status expected)', async () => {
         const response = await request(server).post(controller_root).send('{someBrokenJson"');
 
-        expect(response.status).toEqual(500);
+        expect(response.status).toEqual(StatusCode.INTERNAL_SERVER_ERROR);
     });
 });
 
@@ -137,7 +138,7 @@ describe('Required fields', () => {
         async (body) => {
             const response = await request(server).post(controller_root).send(body);
 
-            expect(response.status).toEqual(400);
+            expect(response.status).toEqual(StatusCode.BAD_REQUEST);
         },
     );
 
@@ -156,7 +157,7 @@ describe('Required fields', () => {
                 .put(controller_root + '/' + user_id)
                 .send(updateBody);
 
-            expect(putUserResponce.status).toEqual(400);
+            expect(putUserResponce.status).toEqual(StatusCode.BAD_REQUEST);
             expect(putUserResponce.body).toHaveProperty('message');
         },
     );

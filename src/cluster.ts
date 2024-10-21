@@ -8,6 +8,7 @@ import { DEFAULT_CLUSTER_PORT } from './constants/common';
 import { App } from './app';
 
 import { Database } from './services/db';
+import { StatusCode } from './controllers/interface';
 
 dotenv.config();
 
@@ -80,7 +81,10 @@ if (cluster.isPrimary) {
                 } as RequestOptions,
                 (workerResponce) => {
                     console.log(`Cluster proxied a httpRequest to the port: ${WORKER_PORT}`);
-                    response.writeHead(workerResponce.statusCode ?? 500, workerResponce.headers);
+                    response.writeHead(
+                        workerResponce.statusCode ?? StatusCode.INTERNAL_SERVER_ERROR,
+                        workerResponce.headers,
+                    );
                     workerResponce.pipe(response);
                 },
             );
@@ -92,7 +96,9 @@ if (cluster.isPrimary) {
             });
 
             requestToWorker.on('error', () => {
-                response.writeHead(500, { 'Content-Type': 'text/plain' });
+                response.writeHead(StatusCode.INTERNAL_SERVER_ERROR, {
+                    'Content-Type': 'text/plain',
+                });
                 response.end('Internal Server Error');
             });
         });
@@ -112,7 +118,7 @@ if (cluster.isPrimary) {
 
     const server = createServer((request, response) => {
         request.on('error', () => {
-            response.writeHead(500);
+            response.writeHead(StatusCode.INTERNAL_SERVER_ERROR);
         });
         app.handleHttp(request, response);
     });

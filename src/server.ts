@@ -6,6 +6,7 @@ import { DEFAULT_HOST_PORT } from './constants/common';
 
 import { App } from './app';
 import { Database } from './services/db';
+import { StatusCode } from './controllers/interface';
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const app = new App(database);
 
 const server = createServer((request, response) => {
     request.on('error', (error) => {
-        response.writeHead(500, { 'Content-Type': 'text/plain' });
+        response.writeHead(StatusCode.INTERNAL_SERVER_ERROR, { 'Content-Type': 'text/plain' });
         response.end(error.message);
     });
 

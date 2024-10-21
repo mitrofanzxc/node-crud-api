@@ -1,9 +1,10 @@
 import { IncomingMessage, ServerResponse } from 'node:http';
 
-import type {
-    ControllerInterface,
-    ControllerResponse,
-    ControllerRoot,
+import {
+    StatusCode,
+    type ControllerInterface,
+    type ControllerResponse,
+    type ControllerRoot,
 } from '../controllers/interface';
 import { controllersProvider } from '../controllers/provider';
 
@@ -59,7 +60,7 @@ export class Router {
 
         if (!result) {
             result = {
-                code: 404,
+                code: StatusCode.NOT_FOUND,
                 message: 'Controller hanlder not found',
             } as ControllerResponse;
         }

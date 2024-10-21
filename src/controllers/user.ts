@@ -1,7 +1,7 @@
 import { Database } from '../services/db';
 
 import type { ControllerInterface, ControllerResponse, ControllerRoot } from './interface';
-import { RequestMethodMapper } from './interface';
+import { RequestMethodMapper, StatusCode } from './interface';
 
 import type { UserInterface } from '../models/user';
 import { createUserModel } from '../models/user';
@@ -27,7 +27,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
                 return handler.bind(this)(data, params);
             } catch (error) {
                 return {
-                    code: 400,
+                    code: StatusCode.BAD_REQUEST,
                     message:
                         error instanceof Error
                             ? error.message
@@ -39,7 +39,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         }
 
         return {
-            code: 500,
+            code: StatusCode.INTERNAL_SERVER_ERROR,
             message: "Controller handler can't resolve the request",
         } as ControllerResponse;
     }
@@ -47,7 +47,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
     private _handleGet({}, params: string[] = []): ControllerResponse {
         const user_id = params[0];
         const responce = {
-            code: 200,
+            code: StatusCode.OK,
         } as ControllerResponse;
 
         if (!user_id) {
@@ -56,7 +56,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
             const userData = this.database.get(user_id);
 
             if (!userData) {
-                responce.code = 404;
+                responce.code = StatusCode.NOT_FOUND;
                 responce.message = "User with this ID doesn't exist";
             } else {
                 responce.result = userData;
@@ -70,7 +70,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         const model = createUserModel(data);
         const result = this.database.add(model);
         return {
-            code: 201,
+            code: StatusCode.CREATED,
             message: 'User sucessfully added',
             result,
         } as ControllerResponse;
@@ -82,7 +82,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
 
         if (!userData) {
             return {
-                code: 404,
+                code: StatusCode.NOT_FOUND,
                 message: "User with this ID doesn't exist",
             } as ControllerResponse;
         }
@@ -92,7 +92,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         this.database.update(user_id, userModel);
 
         return {
-            code: 200,
+            code: StatusCode.OK,
             message: 'User sucessfully updated',
             result: userModel,
         } as ControllerResponse;
@@ -104,14 +104,14 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         const userData = this.database.get(user_id);
         if (!userData) {
             return {
-                code: 404,
+                code: StatusCode.NOT_FOUND,
                 message: "User with this ID doesn't exist",
             } as ControllerResponse;
         } else {
             this.database.delete(user_id);
         }
         return {
-            code: 204,
+            code: StatusCode.NO_CONTENT,
             message: 'User sucessfully deleted',
         } as ControllerResponse;
     }
