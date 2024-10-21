@@ -5,7 +5,6 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "type": "module",
   "scripts": {
     "start:dev": "ts-node-dev src/server",
     "start:prod": "tsc && webpack --mode=production && node dist/server.min",

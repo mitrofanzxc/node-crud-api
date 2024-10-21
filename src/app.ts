@@ -1,7 +1,7 @@
 import { ServerResponse, IncomingMessage } from 'node:http';
 
-import { Router } from 'routers/main';
-import { Database } from 'services/db';
+import { Router } from './routers/main';
+import { Database } from './services/db';
 
 export class App {
     private router: Router;

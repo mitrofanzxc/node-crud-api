@@ -4,11 +4,10 @@ import type {
     ControllerInterface,
     ControllerResponse,
     ControllerRoot,
-} from 'controllers/interface';
+} from '../controllers/interface';
+import { controllersProvider } from '../controllers/provider';
 
-import { Database } from 'services/db';
-
-import { controllersProvider } from 'controllers/provider';
+import { Database } from '../services/db';
 
 export class Router {
     protected controllers: {

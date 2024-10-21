@@ -1,7 +1,7 @@
-import { ModelErrorFields } from 'constants/error';
+import { ModelErrorFields } from '../constants/error';
 
-import type { FieldsMap } from 'utils/has-required-fields';
-import { hasRequiredFields } from 'utils/has-required-fields';
+import type { FieldsMap } from '../utils/has-required-fields';
+import { hasRequiredFields } from '../utils/has-required-fields';
 
 import type { ModelInterface } from './model';
 
@@ -32,7 +32,7 @@ const requiredFields: FieldsMap = {
     },
 };
 
-export const createUserModel = (object: Object | UserInterface): UserInterface => {
+export const createUserModel = (object: object | UserInterface): UserInterface => {
     if (hasRequiredFields<UserInterface>(object, requiredFields)) {
         throw new ModelErrorFields();
     }

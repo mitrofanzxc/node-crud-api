@@ -2,10 +2,10 @@ import { createServer } from 'node:http';
 import { env } from 'node:process';
 import dotenv from 'dotenv';
 
-import { DEFAULT_HOST_PORT } from 'constants/common';
+import { DEFAULT_HOST_PORT } from './constants/common';
 
-import { App } from 'app';
-import { Database } from 'services/db';
+import { App } from './app';
+import { Database } from './services/db';
 
 dotenv.config();
 

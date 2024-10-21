@@ -3,11 +3,11 @@ import { availableParallelism } from 'node:os';
 import cluster, { Worker } from 'node:cluster';
 import dotenv from 'dotenv';
 
-import { DEFAULT_CLUSTER_PORT } from 'constants/common';
+import { DEFAULT_CLUSTER_PORT } from './constants/common';
 
-import { App } from 'app';
+import { App } from './app';
 
-import { Database } from 'services/db';
+import { Database } from './services/db';
 
 dotenv.config();
 
@@ -40,7 +40,7 @@ if (cluster.isPrimary) {
         });
     }
 
-    cluster.on('message', (messagedWorker: Worker, workerDatabase: Object) => {
+    cluster.on('message', (messagedWorker: Worker, workerDatabase: object) => {
         if (!workerDatabase || !workerDatabase.hasOwnProperty('data')) {
             return;
         }

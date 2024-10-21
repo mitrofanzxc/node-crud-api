@@ -1,4 +1,4 @@
-import { Database } from 'services/db';
+import { Database } from '../services/db';
 import { UserController } from './user';
 
 import type { ControllerInterface, ControllerResponse, ControllerRoot } from './interface';

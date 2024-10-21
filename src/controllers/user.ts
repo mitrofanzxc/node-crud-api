@@ -1,10 +1,10 @@
-import { Database } from 'services/db';
+import { Database } from '../services/db';
 
 import type { ControllerInterface, ControllerResponse, ControllerRoot } from './interface';
 import { RequestMethodMapper } from './interface';
 
-import type { UserInterface } from 'models/user';
-import { createUserModel } from 'models/user';
+import type { UserInterface } from '../models/user';
+import { createUserModel } from '../models/user';
 
 export class UserController implements ControllerInterface<ControllerResponse> {
     root: ControllerRoot = '/api/users';
@@ -17,7 +17,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
     public proceed(
         method: keyof typeof RequestMethodMapper,
         params: string[],
-        data: Object,
+        data: object,
     ): ControllerResponse {
         const operation = RequestMethodMapper[method];
         const handler = this[operation];
@@ -66,7 +66,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         return responce;
     }
 
-    private _handlePost(data: Object): ControllerResponse {
+    private _handlePost(data: object): ControllerResponse {
         const model = createUserModel(data);
         const result = this.database.add(model);
         return {
@@ -76,7 +76,7 @@ export class UserController implements ControllerInterface<ControllerResponse> {
         } as ControllerResponse;
     }
 
-    private _handlePut(data: Object, params: string[]): ControllerResponse {
+    private _handlePut(data: object, params: string[]): ControllerResponse {
         const user_id = params[0] as string;
         const userData = this.database.get(user_id);
 

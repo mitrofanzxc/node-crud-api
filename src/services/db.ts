@@ -1,6 +1,6 @@
 import { v4 as uuid, validate } from 'uuid';
 
-import { DatabaseErrorID } from 'constants/error';
+import { DatabaseErrorID } from '../constants/error';
 
 export type UUID = ReturnType<typeof uuid>;
 

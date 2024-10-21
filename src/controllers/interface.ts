@@ -1,7 +1,7 @@
 export type ControllerRoot = `/${string}`;
 
 export type ControllerResponse = {
-    result: Object;
+    result: object;
     code: 200 | 201 | 204 | 400 | 404 | 500;
     message?: string;
 };
@@ -15,5 +15,5 @@ export enum RequestMethodMapper {
 
 export interface ControllerInterface<Type> {
     root: ControllerRoot;
-    proceed(method: string, params?: string[], data?: Object): Type;
+    proceed(method: string, params?: string[], data?: object): Type;
 }
