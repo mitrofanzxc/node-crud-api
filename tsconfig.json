@@ -1,0 +1,27 @@
+{
+    "include": ["./src/**/*.ts", "./__tests__/**/*.ts"],
+    "exclude": ["./node_modules"],
+    "compilerOptions": {
+        "target": "ES2020",
+        "lib": ["ESNext"],
+        "module": "CommonJS",
+        "rootDir": "./",
+        "moduleResolution": "Node",
+        "baseUrl": "./src",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noUncheckedIndexedAccess": true,
+        "skipLibCheck": true
+    }
+}
